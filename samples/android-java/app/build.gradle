@@ -1,3 +1,13 @@
+// For onesignal plugin
+plugins {
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin' version '0.8.1'
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+repositories {
+    maven { url 'https://maven.google.com' }
+}
+// end onesignal plugin
+
 apply plugin: 'com.android.application'
 
 android {
@@ -10,6 +20,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [onesignal_app_id: "PUT YOUR ONESIGNAL APP ID HERE",
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE"]
     }
     buildTypes {
         release {
@@ -20,6 +33,7 @@ android {
 }
 
 repositories {
+    // For gitple library path
     flatDir {
         dirs 'libs'
     }
@@ -41,5 +55,7 @@ dependencies {
 
     // FlatingActionButton for counter:  https://github.com/andremion/CounterFab
     compile 'com.github.andremion:counterfab:1.0.1'
+    // For onesignal
+    compile 'com.onesignal:OneSignal:[3.7.1, 3.99.99]'
     testCompile 'junit:junit:4.12'
 }
