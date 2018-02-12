@@ -23,3 +23,22 @@ public class MyCustomApplication extends Application {
 ```
 
 2. Open project with Android Studio, Build and Run one the apps
+
+
+### OneSignal Push Notification
+
+OneSignal is push notification service for websites and mobile([Homepage](https://onesignal.com))
+
+1. Create OneSignal account if you do not already have one
+2. Setup OneSignal App ID in `build.gradle`
+```
+android {
+   defaultConfig {
+      manifestPlaceholders = [onesignal_app_id: "PUT YOUR ONESIGNAL APP ID HERE",
+                              // Project number pulled from dashboard, local value is ignored.
+                              onesignal_google_project_number: "REMOTE"]
+    }
+ }
+```
+
+3. Reference : [OneSignal setup for Android](https://documentation.onesignal.com/docs/android-sdk-setup)
