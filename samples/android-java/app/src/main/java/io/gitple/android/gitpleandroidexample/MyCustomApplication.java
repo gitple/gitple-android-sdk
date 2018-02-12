@@ -13,7 +13,7 @@ public class MyCustomApplication extends Application {
         super.onCreate();
 
         // Initialize Gitple with appCode
-        Gitple.initialize(this, "0gB8bTBoPOE6lWnleDun9wRGIeef11");
+        Gitple.initialize(this, "xxxxxxxxxxxxxx");
 
         // hide gitple header
         Gitple.config().setHideHeader(true);
