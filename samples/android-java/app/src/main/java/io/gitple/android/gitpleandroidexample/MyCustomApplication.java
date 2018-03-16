@@ -25,7 +25,7 @@ public class MyCustomApplication extends Application {
         Gitple.initialize(this, "Put your appCode");
 
         // hide gitple header
-        Gitple.config().setHideHeader(true);
+        // Gitple.config().setHideHeader(true);
 
         // gitple user login
         loginUser();
