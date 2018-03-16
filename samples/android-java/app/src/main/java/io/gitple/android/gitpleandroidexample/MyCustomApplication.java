@@ -42,7 +42,7 @@ public class MyCustomApplication extends Application {
         // send Tag to onesignal
         JSONObject tags = new JSONObject();
         try {
-            tags.put("gp", "userid0000001");
+            tags.put("gp", "androiduser1");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -51,7 +51,7 @@ public class MyCustomApplication extends Application {
 
     public void loginUser() {
         // Register gitple user
-        Gitple.user().setId("userid0000001")
+        Gitple.user().setId("androiduser1")
                 .setEmail("android@gitple.com")
                 .setName("android user")
                 .setPhone("010-0000-0000")
@@ -66,14 +66,7 @@ public class MyCustomApplication extends Application {
     private class OnesignalNotificationReceivedHandler implements OneSignal.NotificationReceivedHandler {
         @Override
         public void notificationReceived(OSNotification notification) {
-            JSONObject data = notification.payload.additionalData;
-            String fromKey;
-
-            if (data != null) {
-                fromKey = data.optString("from", null);
-                if (fromKey != null)
-                    Log.i(TAG, "Notification Received: fromKey set with value: " + fromKey);
-            }
+            Log.v(TAG, "notificationReceived");
         }
     }
 
@@ -81,16 +74,15 @@ public class MyCustomApplication extends Application {
         // This fires when a notification is opened by tapping on it.
         @Override
         public void notificationOpened(OSNotificationOpenResult result) {
-            JSONObject data = result.notification.payload.additionalData;
-            String fromKey;
+            Log.v(TAG, "notificationOpened");
+            // JSONObject data = result.notification.payload.additionalData;
 
-            if (data != null) {
-                fromKey = data.optString("from", null);
-
-                if (fromKey != null) {
-                    Log.i(TAG, "Notification Opened: fromKey set with value: " + fromKey);
-                }
-            }
+            // if (data != null) {
+            //    String fromKey = data.optString("from", null);
+            //    if (fromKey != null) {
+            //        Log.i(TAG, "Notification Opened: fromKey set with value: " + fromKey);
+            //    }
+            // }
         }
     }
 }

@@ -1,5 +1,8 @@
 package io.gitple.android.gitpleandroidexample;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.andremion.counterfab.CounterFab;
 
@@ -33,6 +37,50 @@ public class MainActivity extends AppCompatActivity {
                 Gitple.launch(MainActivity.this);
             }
         });
+
+        Button unreadCountButton = (Button) findViewById(R.id.unreadCountButton);
+        unreadCountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(TAG, "onClick: unreadCount button ");
+                MainActivity.this.getGitpleUnreadCount(true);
+            }
+        });
+
+    }
+
+    private void getGitpleUnreadCount(final Boolean showAlert) {
+        // Get unread count at gitple
+        Gitple.unreadCount(new GitpleCallback<Number>() {
+            @Override
+            public void onSuccess(Number data) {
+                Log.v(TAG, "unreadCount Callback onSuccess. data=" + data);
+                CounterFab counterFab = (CounterFab) findViewById(R.id.counter_fab);
+                counterFab.setCount(data.intValue());
+                if (showAlert) {
+                    MainActivity.this.displayAlert("Unread message count: " + data.intValue());
+                }
+            }
+
+            @Override
+            public void onError(Gitple.Error errorCode) {
+                Log.v(TAG, "unreadCount Callback onError. code=" + errorCode);
+            }
+        });
+    }
+
+    private void displayAlert(String message) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        //set the title to be appear in the dialog
+        alertDialogBuilder.setTitle("Gitple")
+                          .setMessage(message)
+                          .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // FIRE ZE MISSILES!
+                                }
+                          })
+                          .show();
+
     }
 
     @Override
@@ -61,19 +109,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Get unread count at gitple
-        Gitple.unreadCount(new GitpleCallback<Number>() {
-            @Override
-            public void onSuccess(Number data) {
-                Log.v(TAG, "unreadCount Callback onSuccess. data=" + data);
-                CounterFab counterFab = (CounterFab) findViewById(R.id.counter_fab);
-                counterFab.setCount(data.intValue());
-            }
-
-            @Override
-            public void onError(Gitple.Error errorCode) {
-                Log.v(TAG, "unreadCount Callback onError. code=" + errorCode);
-            }
-        });
+        this.getGitpleUnreadCount(false);
     }
 }
