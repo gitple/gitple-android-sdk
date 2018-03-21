@@ -27,6 +27,9 @@ public class MyCustomApplication extends Application {
         // hide gitple header
         // Gitple.config().setHideHeader(true);
 
+        // gitple change user language
+        Gitple.config().setUserLang("ko");
+
         // gitple user login
         loginUser();
 
