@@ -54,7 +54,7 @@ public class MyCustomApplication extends Application {
 
     public void loginUser() {
         // Register gitple user
-        Gitple.user().setId("androiduser1")
+        Gitple.user().setId("gitpleandroid")
                 .setEmail("android@gitple.com")
                 .setName("android user")
                 .setPhone("010-0000-0000")
