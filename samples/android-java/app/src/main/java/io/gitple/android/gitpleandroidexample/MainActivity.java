@@ -1,26 +1,39 @@
 package io.gitple.android.gitpleandroidexample;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
 import com.andremion.counterfab.CounterFab;
+//import com.onesignal.OneSignal;
+
+import android.support.v4.app.ActivityCompat;
+import android.content.pm.PackageManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.gitple.android.sdk.Gitple;
 import io.gitple.android.sdk.GitpleCallback;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Gitple:MainActivity";
+
+    private CounterFab counterFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        CounterFab counterFab = (CounterFab) findViewById(R.id.counter_fab);
-        counterFab.setOnClickListener(new View.OnClickListener() {
+        this.counterFab = (CounterFab) findViewById(R.id.counter_fab);
+        this.counterFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Launch gitple Activity
@@ -47,6 +60,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        int cameraPermission = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA);
+        int writeExternalStoragePermission = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED ||
+            writeExternalStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            Activity activity = (Activity)this;
+
+            ActivityCompat.requestPermissions(activity, new String[]{
+                android.Manifest.permission.CAMERA,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            }, 1);
+        }
     }
 
     private void getGitpleUnreadCount(final Boolean showAlert) {

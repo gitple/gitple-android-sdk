@@ -3,9 +3,9 @@ package io.gitple.android.gitpleandroidexample;
 import android.app.Application;
 import android.util.Log;
 
-import com.onesignal.OSNotification;
-import com.onesignal.OSNotificationOpenResult;
-import com.onesignal.OneSignal;
+// import com.onesignal.OSNotification;
+// import com.onesignal.OSNotificationOpenResult;
+// import com.onesignal.OneSignal;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +22,7 @@ public class MyCustomApplication extends Application {
         super.onCreate();
 
         // Initialize Gitple with appCode
-        Gitple.initialize(this, "Put your appCode");
+        Gitple.initialize(this, "0gB8bTBoPOE6lWnleDun9wRGIeef11");
 
         // hide gitple header
         // Gitple.config().setHideHeader(true);
@@ -35,21 +35,21 @@ public class MyCustomApplication extends Application {
 
 
         // Initialize onesignal
-        OneSignal.startInit(this)
-                .setNotificationReceivedHandler(new OnesignalNotificationReceivedHandler())
-                .setNotificationOpenedHandler(new OnesignalNotificationOpenedHandler())
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
+        // OneSignal.startInit(this)
+        //         .setNotificationReceivedHandler(new OnesignalNotificationReceivedHandler())
+        //         .setNotificationOpenedHandler(new OnesignalNotificationOpenedHandler())
+        //         .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+        //         .unsubscribeWhenNotificationsAreDisabled(true)
+        //         .init();
 
         // send Tag to onesignal
-        JSONObject tags = new JSONObject();
-        try {
-            tags.put("gp", "androiduser1");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        OneSignal.sendTags(tags);
+        // JSONObject tags = new JSONObject();
+        // try {
+        //     tags.put("gp", "androiduser1");
+        // } catch (JSONException e) {
+        //     e.printStackTrace();
+        // }
+        // OneSignal.sendTags(tags);
     }
 
     public void loginUser() {
@@ -66,26 +66,26 @@ public class MyCustomApplication extends Application {
         Gitple.user().reset();
     }
 
-    private class OnesignalNotificationReceivedHandler implements OneSignal.NotificationReceivedHandler {
-        @Override
-        public void notificationReceived(OSNotification notification) {
-            Log.v(TAG, "notificationReceived");
-        }
-    }
+    // private class OnesignalNotificationReceivedHandler implements OneSignal.NotificationReceivedHandler {
+    //     @Override
+    //     public void notificationReceived(OSNotification notification) {
+    //         Log.v(TAG, "notificationReceived");
+    //     }
+    // }
 
-    private class OnesignalNotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
-        // This fires when a notification is opened by tapping on it.
-        @Override
-        public void notificationOpened(OSNotificationOpenResult result) {
-            Log.v(TAG, "notificationOpened");
-            // JSONObject data = result.notification.payload.additionalData;
+    // private class OnesignalNotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
+    //     // This fires when a notification is opened by tapping on it.
+    //     @Override
+    //     public void notificationOpened(OSNotificationOpenResult result) {
+    //         Log.v(TAG, "notificationOpened");
+    //         // JSONObject data = result.notification.payload.additionalData;
 
-            // if (data != null) {
-            //    String fromKey = data.optString("from", null);
-            //    if (fromKey != null) {
-            //        Log.i(TAG, "Notification Opened: fromKey set with value: " + fromKey);
-            //    }
-            // }
-        }
-    }
+    //         // if (data != null) {
+    //         //    String fromKey = data.optString("from", null);
+    //         //    if (fromKey != null) {
+    //         //        Log.i(TAG, "Notification Opened: fromKey set with value: " + fromKey);
+    //         //    }
+    //         // }
+    //     }
+    // }
 }
